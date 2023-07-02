@@ -4,34 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Movie Search</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <p>Enter Movie Name</p>
-    <input id ="movieName">
-    <button id="Search">Search</button>
+    <h1 id="title">Movie Search </h1>
+    <div class="Search">
+      <p id="">Enter Movie Name:</p>
+      <input id ="movieName" placeholder="Search here">
+      <button id="Search">Search</button>
+    </div>
     <h1 id="movieTitle"></h1>
-    <p id="rating"></p>
+    <p id="details"></p>
+    <p id = "api"></p>
   </body>
-  <script>
-    function movieSearch(){
-      const title = document.getElementById("movieName").value;
-      const apikey = "b4cdfba7";
-      const url = `https://www.omdbapi.com/?t=${title}&apikey=b4cdfba7`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          movieTitle.innerHTML = `Title: <b>${title}</b>`;
-          rating.innerHTML = `IMDB Rating:<b> ${data.imdbRating}</b><br> Release Year: <b>${data.Year}</b><br>Director Name: <b>${data.Director}</b><br><br><img src="${data.Poster}">`;
-        });
-    }
-    document.getElementById("Search").addEventListener("click", movieSearch);
-    let key = document.getElementById('Search')
-    key.addEventListener("keypress", movieSearch(event){
-      if (event.key === "Enter"){
-        event.preventDefault();
-      }
-    });
-  </script>
+  <script src="movie.js"></script>
 </html>
