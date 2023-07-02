@@ -3,11 +3,11 @@ function movieSearch(movieName){
         const title = document.getElementById("movieName").value;
         const apikey = "b4cdfba7";
         const url = `https://www.omdbapi.com/?t=${title}&apikey=${apikey}`;
-        fetch(url)
+        data = fetch(url)
         .then((response) => response.json())
         .then((data) => {
             console.log(data)
-            if (movieName.length==0){
+            if (movieName.length == 0){
                 reject("Please enter a movie name")
             }
             else if(data.Error){
@@ -29,7 +29,7 @@ function validData(data){
         validMovie(data);
     },1000);
 }
-async function input_check(input){
+async function input_check(){
     try{
         const title = document.getElementById("movieName").value;
         data = await movieSearch(title);
@@ -39,7 +39,7 @@ async function input_check(input){
         alert(error);
     }
 }
-document.getElementById("title").addEventListener("click", movieSearch);
+document.getElementById("title").addEventListener("click", input_check);
 let key = document.querySelector("input")
 key.addEventListener("keypress", function(event){
     if (event.key === "Enter"){
