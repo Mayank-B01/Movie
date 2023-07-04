@@ -1,17 +1,16 @@
-function movieSearch(movieName){
+function movieSearch(title){
     return new Promise((resolve, reject) => {
-        const title = document.getElementById("movieName").value;
         const apikey = "b4cdfba7";
         const url = `https://www.omdbapi.com/?t=${title}&apikey=${apikey}`;
         data = fetch(url)
         .then((response) => response.json())
         .then((data) => {
             console.log(data)
-            if (movieName.length == 0){
+            if (title.length === 0){
                 reject("Please enter a movie name")
             }
             else if(data.Error){
-                reject("Entered movie not found");
+                reject(data.Error);
             }
             else{
                 resolve(data);
@@ -24,26 +23,25 @@ function validMovie(data){
     document.getElementById("details").innerHTML = `<b>Release Year:</b>${data.Year}<br><b>Director Name:</b>${data.Director}<br><b>Overview:</b>${data.Plot}<br><b>Casts:</b>${data.Actors}<br><img src="${data.Poster}">`;
     document.getElementById("api").innerHTML = `&copy Made by Mayank Baryal with OMDBapi`
 }
-function validData(data){
-    setTimeout(()=>{
-        validMovie(data);
-    },1000);
-}
+
 async function input_check(){
     try{
         const title = document.getElementById("movieName").value;
         data = await movieSearch(title);
-        validData(data);
+        setTimeout(()=>{
+            validMovie(data);
+        },1000)
     }
     catch (error){
         alert(error);
     }
 }
-document.getElementById("title").addEventListener("click", input_check);
-let key = document.querySelector("input")
-key.addEventListener("keypress", function(event){
-    if (event.key === "Enter"){
-    event.preventDefault();
-    input_check(document.getElementById("movieName").value);
+
+
+document.getElementById("Search").addEventListener("click", input_check);
+document.querySelector("input").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        input_check();
     }
 });
